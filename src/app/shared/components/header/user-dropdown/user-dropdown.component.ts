@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { DropdownComponent } from '../../ui/dropdown/dropdown.component';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
 import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdown-item.component-two';
+import { DropdownComponent } from '../../ui/dropdown/dropdown.component';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -12,11 +13,18 @@ import { DropdownItemTwoComponent } from '../../ui/dropdown/dropdown-item/dropdo
 export class UserDropdownComponent {
   isOpen = false;
 
+  constructor(private authService: AuthService) {}
+
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
 
   closeDropdown() {
     this.isOpen = false;
+  }
+
+  signOut()
+  {
+    this.authService.signOut();
   }
 }

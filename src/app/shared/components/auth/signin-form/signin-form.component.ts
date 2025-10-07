@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { LabelComponent } from '../../form/label/label.component';
-import { CheckboxComponent } from '../../form/input/checkbox.component';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { InputFieldComponent } from '../../form/input/input-field.component';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
+import { CheckboxComponent } from '../../form/input/checkbox.component';
+import { InputFieldComponent } from '../../form/input/input-field.component';
+import { LabelComponent } from '../../form/label/label.component';
+import { ButtonComponent } from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-signin-form',
@@ -26,16 +27,20 @@ export class SigninFormComponent {
   showPassword = false;
   isChecked = false;
 
-  email = '';
-  password = '';
+  email: string = '';
+  password: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
-  onSignIn() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Remember Me:', this.isChecked);
+  onSignIn() : void
+  {
+    this.authService.signIn(this.email, this.password).subscribe({
+      next: ()=> this.router.navigate(['/']),
+      error: (err) => alert('Ocurrio un error:' + err.message)
+    })
   }
 }

@@ -81,11 +81,10 @@
         <div>
           <app-label>Email <span class="text-error-500">*</span></app-label>
           <app-input-field
+            [(ngModel)]="email"
             type="email"
-            placeholder="info@gmail.com"
-            [value]="email"
+            placeholder="user@example.com"
             name="email"
-            class="form-input"
             required
           />
         </div>
@@ -94,11 +93,10 @@
           <app-label>Contraseña <span class="text-error-500">*</span></app-label>
           <div class="relative">
             <app-input-field
+              [(ngModel)]="password"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="Ingrese su contraseña"
-              [value]="password"
               name="password"
-              class="form-input"
               required
             />
             <span
